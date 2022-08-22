@@ -1,0 +1,52 @@
+﻿<section id="home" class="js-height-full">
+    <div class="home-text-wrapper relative container">
+        <div class="home-message">
+            <p style="color: #4380B9; margin-bottom: 50px;">Đăng nhập</p>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form class="big-contact-form" role="search">
+                        <input type="text" id="sobaodanh" class="form-control" placeholder="Nhập số báo danh">
+                        <input type="text" id="username" class="form-control" placeholder="Nhập tên tài khoản">
+                        <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+                    </form>
+                </div><!-- end col -->
+            </div><!-- end row -->
+            <div class="btn-wrapper">
+                <div class="text-center">
+                    <button class="btn btn-primary slideInDown" id="btn-submit">Đăng nhập</button>
+                </div>
+            </div><!-- end row -->
+
+        </div>
+    </div>
+</section>
+
+<script>
+        $(document).ready(function () {
+            $('#btn-submit').click(function (e) {
+                e.preventDefault();
+                const username = document.getElementById('username');
+                const password = document.getElementById('password');
+                const sobaodanh = document.getElementById('sobaodanh');
+                $.ajax({
+                    url: '/Login/Login',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        'userName': username.value,
+                        'password': password.value,
+                        'sobaodanh': sobaodanh.value,
+                    },
+                    success: function (results) {
+                        window.location.href = results.redirectToUrl;
+                    },
+                    error: function (results) {
+
+                        console.log("err", results)
+                    }
+                });
+            });
+
+        });
+</script>
